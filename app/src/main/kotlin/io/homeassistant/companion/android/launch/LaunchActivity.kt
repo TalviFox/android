@@ -369,19 +369,20 @@ private fun MissingPlayServicesNotice(
         val message = stringResource(commonR.string.play_services_unavailable_full_flavor)
         val learnMore = stringResource(commonR.string.learn_more)
         LaunchedEffect(message) {
-            if (snackbarHostState.showSnackbar(
-                    message = message,
-                    duration = SnackbarDuration.Long,
-                    actionLabel = learnMore,
-                ) == ActionPerformed
-            ) {
+            val result = snackbarHostState.showSnackbar(
+                message = message,
+                duration = SnackbarDuration.Long,
+                actionLabel = learnMore,
+            )
+            if (result == ActionPerformed) {
                 navController.navigateToUri(
                     uri = PLAY_SERVICES_FLAVOR_DOC_URL,
                     onShowSnackbar = { snackbarMessage, action ->
                         snackbarHostState.showSnackbar(snackbarMessage, action) == ActionPerformed
                     },
                 )
-            }gon
+            }
+            Unit
         }
     }
 }
