@@ -381,7 +381,7 @@ private fun MissingPlayServicesNotice(
                         snackbarHostState.showSnackbar(snackbarMessage, action) == ActionPerformed
                     },
                 )
-            }
+            }gon
         }
     }
 }
