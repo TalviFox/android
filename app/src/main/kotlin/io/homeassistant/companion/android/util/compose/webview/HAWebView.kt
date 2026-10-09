@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
+import android.view.ViewGroup
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.FrameLayout
@@ -120,9 +121,13 @@ fun HAWebView(
                 }
             },
             modifier = modifier,
-            onRelease = {
-                Timber.d("onRelease WebView, stopping loading")
-                (it as? WebView)?.stopLoading()
+            onRelease = { view ->
+                Timber.d("onRelease WebView, stopping loading and destroying")
+                (view as? WebView)?.let { webView ->
+                    webView.stopLoading()
+                    (webView.parent as? ViewGroup)?.removeView(webView)
+                    webView.destroy()
+                }
                 webview = null
             },
         )
