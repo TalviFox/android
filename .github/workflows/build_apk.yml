@@ -20,6 +20,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Install Official Mock Google Services
+        run: |
+          cp .github/mock-google-services.json app/google-services.json
+          cp .github/mock-google-services.json automotive/google-services.json || true
+          cp .github/mock-google-services.json wear/google-services.json || true
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
